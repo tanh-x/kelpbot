@@ -1,6 +1,9 @@
 package game
 
+import bot.command.BotCommand
+import bot.command.CommandList
 import dev.kord.core.entity.Member
+import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
 
 abstract class AbstractGame(
@@ -45,4 +48,6 @@ abstract class AbstractGame(
     protected suspend fun sendMessage(content: String) {
         channel.createMessage(content)
     }
+
+    abstract fun getCommandList(): Array<BotCommand>
 }
