@@ -1,4 +1,4 @@
-package game.TestGame
+package game.test_game
 
 import bot.command.BotCommand
 import bot.command.CommandList
