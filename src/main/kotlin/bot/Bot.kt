@@ -4,7 +4,6 @@ import bot.command.BotCommand
 import bot.command.CommandList
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
-import dev.kord.core.entity.Member
 import dev.kord.core.entity.Message
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
@@ -12,6 +11,8 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import game.AbstractGame
 import util.BotConstants
+import util.splitArguments
+import java.util.*
 
 class Bot(authToken: String) {
     private val token: String = authToken
@@ -55,7 +56,7 @@ class Bot(authToken: String) {
             return@firstOrNull userInvocation in cmd.invocation
         }
 
-        if (invokedCmd != null) invokedCmd.execute(msg)
+        if (invokedCmd != null) invokedCmd.execute(msg, splitArguments(msg.content))
         else msg.reply { content = "Unknown command: $userInvocation" }
     }
 

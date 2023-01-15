@@ -2,7 +2,7 @@ package bot.command
 
 import dev.kord.core.entity.Message
 
-data class BotCommand(val invocation: Array<String>, val execute: suspend (Message) -> Unit) {
+data class BotCommand(val invocation: Array<String>, val execute: suspend (Message, Array<String>) -> Unit) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -12,9 +12,5 @@ data class BotCommand(val invocation: Array<String>, val execute: suspend (Messa
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = invocation.contentHashCode()
-        result = 31 * result + execute.hashCode()
-        return result
-    }
+    override fun hashCode(): Int = 31 * invocation.contentHashCode() + execute.hashCode()
 }

@@ -11,3 +11,9 @@ suspend fun Message.respond(content: String) {
 suspend fun Message.respond(builder: UserMessageCreateBuilder.() -> Unit) {
     this.channel.createMessage(builder)
 }
+
+fun splitArguments(s: String): Array<String> {
+    return s.split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*\$)".toRegex())
+        .filter { x -> x.isNotBlank() }
+        .toTypedArray()
+}
