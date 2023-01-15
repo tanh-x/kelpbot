@@ -1,13 +1,13 @@
 package game
 
-import dev.kord.core.entity.User
+import dev.kord.core.entity.Member
 import dev.kord.core.entity.channel.MessageChannel
 
 abstract class AbstractGame(
-    initialPlayerList: MutableSet<User>,
+    initialPlayerList: MutableSet<Member>,
     hostChannel: MessageChannel,
 ) {
-    var playerList: MutableSet<User> = initialPlayerList
+    var playerList: MutableSet<Member> = initialPlayerList
         private set
 
     var isOngoing: Boolean = false
@@ -16,25 +16,33 @@ abstract class AbstractGame(
     var isJoinable: Boolean = true
         protected set
 
-    val channel: MessageChannel = hostChannel
+    private val channel: MessageChannel = hostChannel
 
     open suspend fun startGame() {
         isOngoing = true
-        channel.createMessage("Starting game with ${playerList.size} players")
+        sendMessage("Starting game with ${playerList.size} players")
     }
 
-    open suspend fun addPlayer(player: User): Boolean {
+    open suspend fun addPlayer(player: Member): Boolean {
         if (!isJoinable) {
-            channel.createMessage("Could not add player ${player.tag} into this game")
+            sendMessage("Could not add player ${player.nickname} into this game")
             return false
         }
 
         if (!playerList.add(player)) {
-            channel.createMessage("${player.tag} is already in this game")
+            sendMessage("${player.nickname} is already in this game")
             return false
         }
 
-        channel.createMessage("Added ${player.tag} to this game")
+        sendMessage("Added ${player.nickname} to this game")
         return true
+    }
+
+    open fun getFormattedPlayerList(): String {
+        return playerList.map { p: Member -> p.nickname } .joinToString(", ")
+    }
+
+    protected suspend fun sendMessage(content: String) {
+        channel.createMessage(content)
     }
 }
