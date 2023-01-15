@@ -1,6 +1,7 @@
 package game
 
 import bot.command.BotCommand
+import bot.command.CommandCategory
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Member
 import dev.kord.core.entity.channel.MessageChannel
@@ -79,5 +80,9 @@ abstract class AbstractGame(
         channel.createMessage(builder)
     }
 
-    abstract fun getCommandList(): Array<BotCommand>
+    open fun getCommandList(): Array<BotCommand> = GAME_COMMAND_LIST
+
+    companion object {
+        private val GAME_COMMAND_LIST: Array<BotCommand> = CommandCategory.ABSTRACT_GAME.commands
+    }
 }

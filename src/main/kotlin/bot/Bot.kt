@@ -1,7 +1,5 @@
 package bot
 
-import bot.command.BotCommand
-import bot.command.CommandList
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
@@ -11,7 +9,8 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import game.AbstractGame
 import util.BotConstants
-import util.splitArguments
+import util.getCommand
+import util.getArgs
 import java.util.*
 
 class Bot(authToken: String) {
@@ -19,7 +18,7 @@ class Bot(authToken: String) {
     private val gamesList: MutableMap<ULong, AbstractGame> = mutableMapOf()
 
     /**
-     * Entry point the bot
+     * Entry point of the bot
      */
     suspend fun main() {
         val kord = Kord(token)
@@ -30,7 +29,7 @@ class Bot(authToken: String) {
                 message.content.length > BotConstants.MESSAGE_LENGTH_LIMIT
             ) return@on
 
-            parseCommand(message)
+            message.executeCommand()
         }
 
         kord.login {
@@ -41,24 +40,11 @@ class Bot(authToken: String) {
 
     /**
      * Given a message, fetch the correct command and execute it on the message. Handling of arguments
-     * is delegated to the dispatched function corresponding to the command.
-     *
-     * @param msg The message object to parse
+     * is delegated to [util.getArgs]
      */
-    private suspend fun parseCommand(msg: Message) {
-        val userInvocation: String = msg.content.substringBefore(" ").substring(1)
-
-        val validCommandsInContext: Array<BotCommand> =
-            (gamesList[msg.channelId.value]?.getCommandList() ?: emptyArray()) +
-            CommandList.DUMMY_COMMANDS
-
-        val invokedCmd: BotCommand? = validCommandsInContext.firstOrNull { cmd: BotCommand ->
-            return@firstOrNull userInvocation in cmd.invocation
-        }
-
-        if (invokedCmd != null) invokedCmd.execute(msg, splitArguments(msg.content))
-        else msg.reply { content = "Unknown command: $userInvocation" }
-    }
+    private suspend fun Message.executeCommand() = getCommand(true)
+        ?.execute?.invoke(this, getArgs(content))
+        ?: reply { content = "Unknown command: ${getArgs(this@executeCommand.content)[0]}" }
 
     /**
      * @param channelId the ID of the channel to associate this game with
