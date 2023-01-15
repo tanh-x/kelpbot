@@ -26,7 +26,7 @@ class Bot(authToken: String) {
         kord.on<MessageCreateEvent> {
             if (message.author == null || message.author!!.isBot ||
                 !message.content.startsWith(BotConstants.COMMAND_PREFIX) ||
-                message.content.length < BotConstants.MESSAGE_LENGTH_LIMIT
+                message.content.length > BotConstants.MESSAGE_LENGTH_LIMIT
             ) return@on
 
             parseCommand(message)
