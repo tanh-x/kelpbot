@@ -7,6 +7,8 @@ import dev.kord.core.entity.Member
 import dev.kord.core.entity.channel.MessageChannel
 import dev.kord.rest.builder.message.create.UserMessageCreateBuilder
 import io.ktor.util.date.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 abstract class AbstractGame(
     initialPlayerList: MutableSet<Member>,
@@ -42,27 +44,27 @@ abstract class AbstractGame(
     /**
      * Attempts to start the game, called by the user with the start command
      */
-    open suspend fun startGame() {
+    open fun startGame(): Unit = runBlocking {
         isOngoing = true
-        sendMessage("Starting game with ${playerList.size} players")
+        launch { sendMessage("Starting game with ${playerList.size} players") }
     }
 
     /**
      * Attempts to add the specified user to the game
      */
-    open suspend fun addPlayer(player: Member): Boolean {
+    open fun addPlayer(player: Member): Boolean = runBlocking {
         if (!isJoinable) {
-            sendMessage("Could not add player ${player.nickname} into this game")
-            return false
+            launch { sendMessage("Could not add player ${player.nickname} into this game") }
+            return@runBlocking false
         }
 
         if (!playerList.add(player)) {
-            sendMessage("${player.nickname} is already in this game")
-            return false
+            launch { sendMessage("${player.nickname} is already in this game") }
+            return@runBlocking false
         }
 
-        sendMessage("Added ${player.nickname} to this game")
-        return true
+        launch { sendMessage("Added ${player.nickname} to this game") }
+        return@runBlocking true
     }
 
     open fun getFormattedPlayerList(): String {
@@ -72,11 +74,11 @@ abstract class AbstractGame(
     /**
      * More succinct method call to send a message to the channel that the game is hosted on
      */
-    protected suspend fun sendMessage(content: String) {
+    protected suspend fun sendMessage(content: String): Unit {
         channel.createMessage(content)
     }
 
-    protected suspend fun sendMessage(builder: UserMessageCreateBuilder.() -> Unit) {
+    protected suspend fun sendMessage(builder: UserMessageCreateBuilder.() -> Unit): Unit {
         channel.createMessage(builder)
     }
 

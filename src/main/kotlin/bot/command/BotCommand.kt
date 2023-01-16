@@ -12,7 +12,8 @@ import dev.kord.core.entity.Message
 data class BotCommand(
     val invocations: Array<String>,
     val descriptor: String = invocations[0],
-    val execute: suspend (Message, Array<String>) -> Unit = { _, _ -> }
+    val execute: suspend (Message, Array<String>) -> Unit = { _, _ -> },
+    val isInvocable: Message.() -> Boolean = { true }
 ) {
     init {
         if (invocations.isEmpty()) {

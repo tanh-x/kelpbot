@@ -1,4 +1,4 @@
-package util
+package utils
 
 object BotConstants {
     const val COMMAND_PREFIX: String = "."
