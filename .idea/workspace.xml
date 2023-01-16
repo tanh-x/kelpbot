@@ -4,26 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="coroutines">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/AbstractPlayer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/DiceGame.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/AbstractTile.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/Purchaseable.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/StandardTile.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/MonopolyConstants.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestPlayer.kt" afterDir="false" />
+    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="things">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/Bot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/Bot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/command/BotCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/command/BotCommand.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/AbstractGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/AbstractGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/GameManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/GameManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/TurnBasedGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/TurnBasedGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/DiceGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/DiceGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/TurnBasedGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/TurnBasedGame.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/BotConstants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/BotConstants.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/BotHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/BotHelpers.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673829236561</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="asdhlda">
+      <created>1673842106573</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673842106573</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -208,6 +202,10 @@
     <MESSAGE value="argument parsing" />
     <MESSAGE value="major command refactoring" />
     <MESSAGE value="coroutines" />
-    <option name="LAST_COMMIT_MESSAGE" value="coroutines" />
+    <MESSAGE value="asdhlda" />
+    <option name="LAST_COMMIT_MESSAGE" value="asdhlda" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/kelpbot$MainKt.ic" NAME="MainKt Coverage Results" MODIFIED="1673844566387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

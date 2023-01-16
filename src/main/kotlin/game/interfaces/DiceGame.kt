@@ -7,7 +7,7 @@ interface DiceGame {
     val diceSum: Int
         get() = diceRoll.sum()
 
-    fun rollDice(numDice: Int, numFace: Int): ArrayList<Int> {
+    fun rollDice(numDice: Int = 2, numFace: Int = 6): ArrayList<Int> {
         diceRoll.clear()
         repeat(numDice) { diceRoll.add(Random.nextInt(numFace) + 1) }
         return diceRoll

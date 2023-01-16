@@ -2,8 +2,10 @@ package bot.command
 
 import dev.kord.core.entity.Message
 import game.GameManager
+import game.interfaces.DiceGame
 import game.interfaces.TurnBasedGame
 import utils.BotConstants
+import utils.getCommand
 import utils.respond
 import utils.reply
 
@@ -17,7 +19,15 @@ enum class CommandCategory(
             invocations = arrayOf("help", "h", "?"),
             descriptor = "",
             execute = { msg: Message, _: Array<String> ->
-                msg.respond("no help")
+                var output: String = ""
+                CommandCategory.values().forEach { cat: CommandCategory ->
+                    output += cat.categoryDescriptor + "\n"
+                    cat.commands.forEach { cmd: BotCommand ->
+                        output += " - ${cmd.invocations.contentToString()}: ${cmd.descriptor}\n"
+                    }
+                    output += "\n"
+                }
+                msg.reply(output)
             }
         ),
 
@@ -31,10 +41,14 @@ enum class CommandCategory(
         categoryDescriptor = "Dummy commands"
     ),
 
-    BOT_ADMIN_COMMANDS(
-        commands = arrayOf(
-
-        ),
+    BOT_ADMIN_COMMANDS(commands = arrayOf(
+        BotCommand(
+            invocations = arrayOf("displayname"),
+            descriptor = this.toString(),
+            execute = { msg: Message, _: Array<String> ->
+                msg.reply(msg.getAuthorAsMember()!!.displayName)
+            }
+        )),
         categoryDescriptor = "Debug commands",
         isInvocableByMessage = { msg: Message -> msg.author?.id?.value in BotConstants.BOT_ADMINS_LIST }
     ),
@@ -83,10 +97,24 @@ enum class CommandCategory(
             descriptor = "Gets the current turn's player",
             execute = { msg: Message, _: Array<String> ->
                 val G: TurnBasedGame = GameManager.getGame(msg.channelId.value) as TurnBasedGame
+                msg.reply(G.currentPlayer.displayName)
             }
         )),
         categoryDescriptor = "Commands for turn-based games",
         isInvocableByMessage = { msg: Message -> GameManager.getGame(msg.channelId.value) is TurnBasedGame }
+    ),
+
+    DICE_GAME(commands = arrayOf(
+        BotCommand(
+            invocations = arrayOf("roll", "r"),
+            descriptor = "Rolls the dice, if possible",
+            execute = { msg: Message, _: Array<String> ->
+                val G: DiceGame = GameManager.getGame(msg.channelId.value) as DiceGame
+                msg.reply(G.rollDice().toString())
+            }
+        )),
+        categoryDescriptor = "Commands for games with dices",
+        isInvocableByMessage = { msg: Message -> GameManager.getGame(msg.channelId.value) is DiceGame }
     ),
 
     TEST_GAME(commands = arrayOf(
