@@ -1,7 +1,5 @@
 package game
 
-import bot.command.BotCommand
-import bot.command.CommandCategory
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Member
 import dev.kord.core.entity.channel.MessageChannel
@@ -11,15 +9,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 abstract class AbstractGame(
-    initialPlayerList: MutableSet<Member>,
-    hostChannel: MessageChannel,
-) {
     /**
      * Stores the list of players participating in the game. Uses a [MutableSet] of [Member]s
      * as we want to access server-specific information.
      */
-    var playerList: MutableSet<Member> = initialPlayerList
-        private set
+    private var userList: MutableSet<Member>,
+    hostChannel: MessageChannel,
+) {
 
     /**
      * Whether the game is still in progress
@@ -46,29 +42,29 @@ abstract class AbstractGame(
      */
     open fun startGame(): Unit = runBlocking {
         isOngoing = true
-        launch { sendMessage("Starting game with ${playerList.size} players") }
+        launch { sendMessage("Starting game with ${userList.size} players") }
     }
 
     /**
      * Attempts to add the specified user to the game
      */
-    open fun addPlayer(player: Member): Boolean = runBlocking {
+    open fun addPlayer(member: Member): Boolean = runBlocking {
         if (!isJoinable) {
-            launch { sendMessage("Could not add player ${player.nickname} into this game") }
+            launch { sendMessage("This game is no longer open to new players") }
             return@runBlocking false
         }
 
-        if (!playerList.add(player)) {
-            launch { sendMessage("${player.nickname} is already in this game") }
+        if (!userList.add(member)) {
+            launch { sendMessage("${member.displayName} is already in this game") }
             return@runBlocking false
         }
 
-        launch { sendMessage("Added ${player.nickname} to this game") }
+        launch { sendMessage("Added ${member.displayName} to this game") }
         return@runBlocking true
     }
 
     open fun getFormattedPlayerList(): String {
-        return playerList.map { p: Member -> p.nickname } .joinToString(", ")
+        return userList.joinToString(", ") { p: Member -> p.displayName }
     }
 
     /**
@@ -80,11 +76,5 @@ abstract class AbstractGame(
 
     protected suspend fun sendMessage(builder: UserMessageCreateBuilder.() -> Unit): Unit {
         channel.createMessage(builder)
-    }
-
-    open fun getCommandList(): Array<BotCommand> = GAME_COMMAND_LIST
-
-    companion object {
-        private val GAME_COMMAND_LIST: Array<BotCommand> = CommandCategory.ABSTRACT_GAME.commands
     }
 }

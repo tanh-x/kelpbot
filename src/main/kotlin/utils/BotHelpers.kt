@@ -22,7 +22,7 @@ suspend fun Message.reply(s: String): Unit {
 fun Message.canInvokeCommand(cat: CommandCategory): Boolean = cat.isInvocableByMessage(this)
 
 fun Message.canInvokeCommand(cmd: BotCommand): Boolean =
-    cmd.getCategory().isInvocableByMessage(this) && cmd.isInvocable(this)
+    cmd.category.isInvocableByMessage(this) && cmd.isInvocable(this)
 
 fun Message.canInvokeCommand(): Boolean = this.getCommand(true) != null
 

@@ -1,17 +1,14 @@
 package game
 
-import dev.kord.core.entity.channel.MessageChannel
-
 object GameManager {
     private val gamesList: MutableMap<ULong, AbstractGame> = mutableMapOf()
 
-    fun forciblyKillGame(channelId: ULong): Unit {
+    fun forceRemoveGame(channelId: ULong): Unit {
         gamesList.remove(channelId)
     }
 
-    fun MessageChannel.hasGame(): Boolean = this.id.value in gamesList
+    fun hasGame(channelId: ULong): Boolean = channelId in gamesList
 
-    fun MessageChannel.getGame(): AbstractGame? = gamesList[this.id.value]
     fun getGame(channelId: ULong): AbstractGame? = gamesList[channelId]
 
     /**

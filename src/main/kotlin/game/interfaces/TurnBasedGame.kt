@@ -1,7 +1,5 @@
-package game
+package game.interfaces
 
-import bot.command.BotCommand
-import bot.command.CommandCategory
 import dev.kord.core.entity.Member
 
 interface TurnBasedGame {
@@ -19,9 +17,5 @@ interface TurnBasedGame {
 
     fun incrementTurn(): Unit {
         turn += 1
-    }
-
-    companion object {
-        private val COMMAND_LIST: Array<BotCommand> = CommandCategory.TURN_BASED_GAME.commands
     }
 }

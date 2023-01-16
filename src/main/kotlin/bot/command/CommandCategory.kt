@@ -1,17 +1,16 @@
 package bot.command
 
-import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
 import game.GameManager
-import game.GameManager.getGame
-import game.TurnBasedGame
+import game.interfaces.TurnBasedGame
+import utils.BotConstants
 import utils.respond
 import utils.reply
 
 enum class CommandCategory(
     val commands: Array<BotCommand>,
     val categoryDescriptor: String = this.toString(),
-    val isInvocableByMessage: (src: Message) -> Boolean = { true }
+    val isInvocableByMessage: (Message) -> Boolean = { true }
 ) {
     DUMMY(commands = arrayOf(
         BotCommand(
@@ -29,7 +28,15 @@ enum class CommandCategory(
                 msg.reply("yoeure a goongus")
             }
         )),
-        categoryDescriptor = "dummy commands"
+        categoryDescriptor = "Dummy commands"
+    ),
+
+    BOT_ADMIN_COMMANDS(
+        commands = arrayOf(
+
+        ),
+        categoryDescriptor = "Debug commands",
+        isInvocableByMessage = { msg: Message -> msg.author?.id?.value in BotConstants.BOT_ADMINS_LIST }
     ),
 
     GAME_MANAGEMENT(commands = arrayOf(
@@ -44,10 +51,7 @@ enum class CommandCategory(
             invocations = arrayOf("here", "ongoing", "game"),
             descriptor = "Find and display the game in this channel, if it exists",
             execute = { msg: Message, _: Array<String> ->
-                msg.reply {
-                    content = msg.getChannel().getGame()?.toString()
-                        ?: "There are currently no games being hosted in this channel"
-                }
+                msg.reply((GameManager.getGame(msg.channelId.value) ?: "No ongoing games").toString())
             }
         )),
         categoryDescriptor = "Game management commands"
@@ -61,7 +65,8 @@ enum class CommandCategory(
 
             }
         )),
-        categoryDescriptor = "General game commands"
+        categoryDescriptor = "General game commands",
+        isInvocableByMessage = { msg: Message -> GameManager.hasGame(msg.channelId.value) }
     ),
 
     TURN_BASED_GAME(commands = arrayOf(
@@ -69,21 +74,19 @@ enum class CommandCategory(
             invocations = arrayOf("end", "et"),
             descriptor = "Ends the current player's turn, increments ply by 1",
             execute = { msg: Message, _: Array<String> ->
-                val G: TurnBasedGame = msg.getChannel().getGame() as TurnBasedGame
-
+                val G: TurnBasedGame = GameManager.getGame(msg.channelId.value) as TurnBasedGame
+                G.incrementPly()
             }
         ),
         BotCommand(
             invocations = arrayOf("current", "ct"),
             descriptor = "Gets the current turn's player",
             execute = { msg: Message, _: Array<String> ->
-                val G: TurnBasedGame = msg.getChannel().getGame() as TurnBasedGame
+                val G: TurnBasedGame = GameManager.getGame(msg.channelId.value) as TurnBasedGame
             }
         )),
         categoryDescriptor = "Commands for turn-based games",
-        isInvocableByMessage = { msg: Message ->
-            GameManager.getGame(msg.channelId.value) is TurnBasedGame
-        }
+        isInvocableByMessage = { msg: Message -> GameManager.getGame(msg.channelId.value) is TurnBasedGame }
     ),
 
     TEST_GAME(commands = arrayOf(

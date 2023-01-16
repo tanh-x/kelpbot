@@ -15,9 +15,14 @@ data class BotCommand(
     val execute: suspend (Message, Array<String>) -> Unit = { _, _ -> },
     val isInvocable: Message.() -> Boolean = { true }
 ) {
+    val category: CommandCategory
+        get() = CommandCategory.values().firstOrNull { cat: CommandCategory -> this in cat.commands }
+            ?: throw NoSuchElementException("Command was not found in within any defined categories")
+    // A command always lives in one category
+
     init {
         if (invocations.isEmpty()) {
-            throw IllegalArgumentException("Command with no invocations instantiated in ${getCategory()}")
+            throw IllegalArgumentException("Command with no invocations instantiated in ${category}")
         }
     }
 
@@ -31,11 +36,4 @@ data class BotCommand(
     }
 
     override fun hashCode(): Int = 31 * invocations.contentHashCode() + execute.hashCode()
-
-    fun getCategory(): CommandCategory {
-        return CommandCategory.values().firstOrNull { cat: CommandCategory -> this in cat.commands }
-            ?: throw NoSuchElementException(  // A command always lives in one category
-                "Command was not found in within any categories in ${CommandCategory::class.simpleName}"
-            )
-    }
 }

@@ -35,8 +35,8 @@ object Bot {
      * Given a message, fetch the correct command and execute it on the message. Handling of arguments
      * is delegated to [utils.getArgs]
      */
-    private suspend fun Message.executeCommand(): Unit = getCommand(true)
-        ?.execute?.invoke(this, getArgs(content))
-        ?: reply("Unknown command: ${getArgs(this@executeCommand.content)[0]}")
-
+    private suspend fun Message.executeCommand(): Unit {
+        getCommand(true)?.execute?.invoke(this, getArgs(content))
+            ?: reply("Unknown command: ${getArgs(this@executeCommand.content)[0]}")
+    }
 }
