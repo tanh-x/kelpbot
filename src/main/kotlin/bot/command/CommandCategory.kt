@@ -119,7 +119,7 @@ enum class CommandCategory(
 
     TEST_GAME(commands = arrayOf(
         BotCommand(
-            invocations = arrayOf("do"),
+            invocations = arrayOf(),
             descriptor = "",
             execute = { msg: Message, vargs: Array<String> ->
 
@@ -130,7 +130,7 @@ enum class CommandCategory(
 
 
 //
-//object CommandList {
+//object CommandList {l1
 //    @JvmStatic
 //    val DUMMY_COMMANDS: Array<BotCommand> = arrayOf(
 //        BotCommand(invocation = arrayOf("help", "h", "?"), "") { msg: Message, _: Array<String> ->

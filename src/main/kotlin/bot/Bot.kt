@@ -2,7 +2,6 @@ package bot
 
 import bot.command.BotCommand
 import bot.command.CommandCategory
-import dev.kord.common.Locale
 import dev.kord.common.annotation.KordExperimental
 import dev.kord.common.annotation.KordUnsafe
 import dev.kord.common.entity.Snowflake
@@ -14,12 +13,11 @@ import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import io.ktor.util.date.*
+import tests.InitValidationTests
 import utils.*
 import java.io.File
 import java.lang.Integer.min
 import java.time.Instant
-import kotlin.math.max
-import kotlin.reflect.typeOf
 
 
 object Bot {
@@ -40,25 +38,14 @@ object Bot {
             kord.login {
                 @OptIn(PrivilegedIntent::class)
                 this.intents += Intent.MessageContent
-
-                val duplicateInvocations: Map<String, Int> = CommandCategory.values()
-                    .map { cat: CommandCategory -> cat.commands }
-                    .reduce { acc: Array<BotCommand>, c: Array<BotCommand> -> acc + c }
-                    .map { cmd: BotCommand -> cmd.invocations }
-                    .reduce { acc: Array<String>, s: Array<String> -> acc + s }
-                    .groupingBy { it }.eachCount()
-                    .filter { pair: Map.Entry<String, Int> -> pair.value > 1 }
-                if (duplicateInvocations.isNotEmpty()) {
-                    throw IllegalStateException("Found duplicate command invocations: $duplicateInvocations")
-                }
+            }.also {
+                InitValidationTests.testCommandDuplication(CommandCategory.values())
             }
 
         } catch (e: Exception) {
             @OptIn(KordUnsafe::class, KordExperimental::class)
             val reportingChannel: MessageChannelBehavior = kord.unsafe.messageChannel(
-                Snowflake(
-                    BotConstants.ERROR_REPORTING_CHANNEL
-                )
+                Snowflake(BotConstants.ERROR_REPORTING_CHANNEL)
             )
             var errorMsg: String =
                 "Encountered exception \"${e::class.qualifiedName}\" at ${Instant.ofEpochMilli(getTimeMillis())}.\n" +

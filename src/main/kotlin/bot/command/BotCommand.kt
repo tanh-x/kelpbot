@@ -17,11 +17,13 @@ data class BotCommand(
 ) {
     val category: CommandCategory
         get() = CommandCategory.values().firstOrNull { cat: CommandCategory -> this in cat.commands }
-            ?: throw NoSuchElementException("Command was not found in within any defined categories")
+            ?: throw IllegalStateException("Command $this was not found in within any defined categories")
     // A command always lives in one category
 
     init {
+        println("dasl;jd;sal")
         if (invocations.isEmpty()) {
+            println("hello")
             throw IllegalArgumentException("Command with no invocations instantiated in ${category}")
         }
     }
