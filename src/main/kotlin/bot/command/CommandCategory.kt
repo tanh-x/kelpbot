@@ -3,8 +3,8 @@ package bot.command
 import dev.kord.core.entity.Message
 import game.GameManager
 import game.GameManager.fetchGameInChannel
-import game.interfaces.DiceGame
-import game.interfaces.TurnBasedGame
+import game.game_interfaces.DiceGame
+import game.game_interfaces.TurnBasedGame
 import utils.BotConstants
 import utils.respond
 import utils.reply

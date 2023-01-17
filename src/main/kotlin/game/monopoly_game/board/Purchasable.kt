@@ -4,7 +4,7 @@ import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer
 import java.lang.IllegalStateException
 
-interface Purchaseable {
+interface Purchasable {
     val price: Array<Int>
     val owner: MonopolyPlayer?
     val level: Int

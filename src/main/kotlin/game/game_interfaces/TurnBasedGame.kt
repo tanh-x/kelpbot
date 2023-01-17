@@ -1,4 +1,4 @@
-package game.interfaces
+package game.game_interfaces
 
 import dev.kord.core.entity.Member
 

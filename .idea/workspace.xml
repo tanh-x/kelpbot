@@ -4,10 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="forced try catch">
+    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="more monopoly functionality">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGameStateValidator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/RailroadTile.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/UtilityTile.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/Bot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/Bot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/BotHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/BotHelpers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/AbstractGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/AbstractGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/DiceGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/game_interfaces/DiceGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/interfaces/TurnBasedGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/game_interfaces/TurnBasedGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/MonopolyBoard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/MonopolyBoard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/Purchaseable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/Purchasable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/StandardTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/StandardTile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/BoardLookupTable.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestGame.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +97,7 @@
       <recent name="$PROJECT_DIR$/src/main" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="game.monopoly_game.data" />
       <recent name="game.interfaces" />
       <recent name="bot.command" />
     </key>
@@ -241,7 +254,21 @@
       <option name="project" value="LOCAL" />
       <updated>1673930387782</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/kotlin/bot/Bot.kt">
+      <created>1673932002834</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1673932002834</updated>
+    </task>
+    <task id="LOCAL-00020" summary="more monopoly functionality">
+      <created>1673936242220</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1673936242220</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -270,7 +297,9 @@
     <MESSAGE value="s" />
     <MESSAGE value="try catch and refactoring" />
     <MESSAGE value="forced try catch" />
-    <option name="LAST_COMMIT_MESSAGE" value="forced try catch" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/kotlin/bot/Bot.kt" />
+    <MESSAGE value="more monopoly functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="more monopoly functionality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

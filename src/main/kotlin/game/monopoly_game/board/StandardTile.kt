@@ -10,7 +10,7 @@ class StandardTile(
     val color: TileColors,
     override val price: Array<Int>,
     override val payout: Array<Int>
-) : AbstractTile(id, name), Purchaseable {
+) : AbstractTile(id, name), Purchasable {
 
     override val owner: MonopolyPlayer? = null
     override val level: Int = 0

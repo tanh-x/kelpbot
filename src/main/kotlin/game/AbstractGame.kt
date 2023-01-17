@@ -35,7 +35,7 @@ abstract class AbstractGame(
      */
     val createdOnMilis: Long = getTimeMillis()
 
-    private val channel: MessageChannel = hostChannel
+    val channel: MessageChannel = hostChannel
 
     /**
      * Attempts to start the game, called by the user with the start command

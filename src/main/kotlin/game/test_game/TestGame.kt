@@ -3,7 +3,7 @@ package game.test_game
 import dev.kord.core.entity.Member
 import dev.kord.core.entity.channel.MessageChannel
 import game.AbstractGame
-import game.interfaces.TurnBasedGame
+import game.game_interfaces.TurnBasedGame
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
