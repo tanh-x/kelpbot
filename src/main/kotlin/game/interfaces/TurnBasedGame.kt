@@ -17,9 +17,9 @@ interface TurnBasedGame {
         }
     }
 
-    fun Member.getTurnIndex(): Int? = playerTurns.entries.firstOrNull { pair -> pair.value == this }?.key
+    fun getTurnIndex(m: Member): Int? = playerTurns.entries.firstOrNull { pair -> pair.value == m }?.key
 
-    fun Member.isCurrentTurn(): Boolean = this.getTurnIndex() == ply
+    fun isCurrentTurn(m: Member): Boolean = getTurnIndex(m) == ply
 
     fun incrementTurn(): Unit {
         turn += 1

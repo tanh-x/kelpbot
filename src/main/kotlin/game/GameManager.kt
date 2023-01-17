@@ -1,5 +1,7 @@
 package game
 
+import dev.kord.core.entity.Message
+
 object GameManager {
     private val gamesList: MutableMap<ULong, AbstractGame> = mutableMapOf()
 
@@ -10,6 +12,8 @@ object GameManager {
     fun hasGame(channelId: ULong): Boolean = channelId in gamesList
 
     fun getGame(channelId: ULong): AbstractGame? = gamesList[channelId]
+
+    fun Message.fetchGameInChannel(): AbstractGame? = gamesList[channelId.value]
 
     /**
      * @param channelId the ID of the channel to associate this game with

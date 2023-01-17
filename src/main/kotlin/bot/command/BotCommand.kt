@@ -13,7 +13,7 @@ data class BotCommand(
     val invocations: Array<String>,
     val descriptor: String = invocations[0],
     val execute: suspend (Message, Array<String>) -> Unit = { _, _ -> },
-    val isInvocable: Message.() -> Boolean = { true }
+    val isInvocable: (Message) -> Boolean = { true }
 ) {
     val category: CommandCategory
         get() = CommandCategory.values().firstOrNull { cat: CommandCategory -> this in cat.commands }
@@ -21,9 +21,7 @@ data class BotCommand(
     // A command always lives in one category
 
     init {
-        println("dasl;jd;sal")
         if (invocations.isEmpty()) {
-            println("hello")
             throw IllegalArgumentException("Command with no invocations instantiated in ${category}")
         }
     }
