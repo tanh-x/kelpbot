@@ -3,6 +3,7 @@ package game.test_game
 import dev.kord.core.entity.Member
 import dev.kord.core.entity.channel.MessageChannel
 import game.AbstractGame
+import game.AbstractPlayer
 import game.game_interfaces.TurnBasedGame
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -17,7 +18,9 @@ class TestGame(
     override var turn: Int = 0
     override var ply: Int = 0
 
-    override val playerTurns: MutableMap<Int, Member> = mutableMapOf()
+    override val memberTurns: MutableMap<Int, Member> = mutableMapOf()
+    override val turnPlayer: TestPlayer = playerList.first()
+
 
 
     override fun incrementPly(): Unit = runBlocking {

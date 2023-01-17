@@ -20,10 +20,10 @@ enum class ValidationChecks(
     OWNERSHIP_CONSISTENCY(
         "Ownership claims made by MonopolyPlayer instances and Purchasable instances must be consistent",
         { game: MonopolyGame ->
-            val ownershipPlayers: Map<MonopolyPlayer, MutableSet<Int>> = game.playerList
+            val ownershipPlayers: Map<MonopolyPlayer, MutableSet<Int>> = game.playerList.values
                 .associateWith { player: MonopolyPlayer -> player.owns.keys.toMutableSet() }
 
-            val ownershipBoard: MutableMap<MonopolyPlayer, MutableSet<Int>> = game.playerList
+            val ownershipBoard: MutableMap<MonopolyPlayer, MutableSet<Int>> = game.playerList.values
                 .associateWith { _: MonopolyPlayer -> mutableSetOf<Int>() }.toMutableMap()
 
             game.board.tileset.forEach { tile: AbstractTile ->
@@ -34,4 +34,10 @@ enum class ValidationChecks(
             ownershipBoard == ownershipPlayers
         }
     )
+
+    // TODO: Negative money check
+
+    // TODO: jailTurns is in -1 and params.jailDiceRolls check
+
+    // TODO:
 }

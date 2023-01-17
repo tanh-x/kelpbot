@@ -6,6 +6,7 @@ import game.GameManager.fetchGameInChannel
 import game.game_interfaces.DiceGame
 import game.game_interfaces.TurnBasedGame
 import utils.BotConstants
+import utils.formatDiceRoll
 import utils.respond
 import utils.reply
 
@@ -61,6 +62,13 @@ enum class CommandCategory(
                 msg.respond(":skull:")
                 throw UnknownError("Brutally murdered by kebbebr")
             }
+        ),
+        BotCommand(
+            invocations = arrayOf("formatdiceroll"),
+            descriptor = "tests the helper method utils.formatDiceRoll ((Array<Int>, Boolean?) -> String)",
+            execute = { msg: Message, vargs: Array<String> ->
+                msg.reply(formatDiceRoll(ArrayList(vargs.mapNotNull { arg: String -> arg.toIntOrNull() })))
+            }
         )),
         categoryDescriptor = "Debug commands",
         isInvocableByMessage = { msg: Message -> msg.author?.id?.value in BotConstants.BOT_ADMINS_LIST }
@@ -113,7 +121,7 @@ enum class CommandCategory(
             },
             isInvocable = { msg: Message ->
                 val G: TurnBasedGame = msg.fetchGameInChannel() as TurnBasedGame
-                G.currentPlayer.id.value == msg.author?.id?.value
+                G.turnMember.id.value == msg.author?.id?.value
             }
         ),
         BotCommand(
@@ -121,7 +129,7 @@ enum class CommandCategory(
             descriptor = "Gets the current turn's player",
             execute = { msg: Message, _: Array<String> ->
                 val G: TurnBasedGame = msg.fetchGameInChannel() as TurnBasedGame
-                msg.reply(G.currentPlayer.displayName)
+                msg.reply(G.turnMember.displayName)
             }
         )),
         categoryDescriptor = "Commands for turn-based games",
@@ -141,7 +149,7 @@ enum class CommandCategory(
             descriptor = "Rolls the dice, if possible",
             execute = { msg: Message, _: Array<String> ->
                 val G: DiceGame = msg.fetchGameInChannel() as DiceGame
-                msg.reply(G.roll().toString())
+                msg.reply(formatDiceRoll(G.roll()))
             }
         )),
         categoryDescriptor = "Commands for games with dices",

@@ -15,6 +15,9 @@ class MonopolyPlayer(
     val position: Int = 0
     val owns: MutableMap<Int, Purchasable> = mutableMapOf()
 
+    var jailTurns: Int = -1
+    var isBankrupt: Boolean = false
+
     fun deductMoney(n: Int): Unit {
         if (n < 0) throw IllegalArgumentException("Tried to deduct $name a negative amount of money: $n")
         money -= n

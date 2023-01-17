@@ -8,11 +8,11 @@ class StandardTile(
     id: Int,
     name: String,
     val color: TileColors,
-    override val price: Array<Int>,
+    override val price: Int,
     override val payout: Array<Int>
 ) : AbstractTile(id, name), Purchasable {
 
-    override val owner: MonopolyPlayer? = null
+    override var owner: MonopolyPlayer? = null
     override val level: Int = 0
 
     override fun onPlayerStep(player: MonopolyPlayer, gameState: MonopolyGame) {
@@ -20,6 +20,13 @@ class StandardTile(
 
         val rentCost: Int = calculatePayout(gameState)
         player.deductMoney(rentCost)
-        owner.addMoney(rentCost)
+        owner!!.addMoney(rentCost)
     }
+
+//    /**
+//     * @return Whether the operation was successful
+//     */
+//    fun buildHouse(): Boolean {
+//
+//    }
 }

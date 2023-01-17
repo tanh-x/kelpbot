@@ -6,11 +6,11 @@ import game.monopoly_game.MonopolyPlayer
 class UtilityTile(
     id: Int,
     name: String,
-    override val price: Array<Int>,
+    override val price: Int,
     override val payout: Array<Int>
 ) : AbstractTile(id, name), Purchasable {
 
-    override val owner: MonopolyPlayer? = null
+    override var owner: MonopolyPlayer? = null
     override val level: Int
         get() = 0
 

@@ -51,3 +51,15 @@ fun getArgs(s: String): Array<String> = s
     .filter { x -> x.isNotBlank() }
     .toTypedArray()
 
+fun formatDiceRoll(roll: ArrayList<Int>, showSum: Boolean = true): String =
+    roll.joinToString(" ") { n: Int ->
+        when (n) {
+            1 -> BotConstants.DICE_1
+            2 -> BotConstants.DICE_2
+            3 -> BotConstants.DICE_3
+            4 -> BotConstants.DICE_4
+            5 -> BotConstants.DICE_5
+            6 -> BotConstants.DICE_6
+            else -> "[ $n ]"
+        }
+    } + (if (showSum) " = **${roll.sum()}**" else "")
