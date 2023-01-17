@@ -5,9 +5,7 @@ import game.GameManager
 import game.GameManager.fetchGameInChannel
 import game.interfaces.DiceGame
 import game.interfaces.TurnBasedGame
-import kotlinx.coroutines.runBlocking
 import utils.BotConstants
-import utils.getCommand
 import utils.respond
 import utils.reply
 
@@ -143,7 +141,7 @@ enum class CommandCategory(
             descriptor = "Rolls the dice, if possible",
             execute = { msg: Message, _: Array<String> ->
                 val G: DiceGame = msg.fetchGameInChannel() as DiceGame
-                msg.reply(G.rollDice().toString())
+                msg.reply(G.roll().toString())
             }
         )),
         categoryDescriptor = "Commands for games with dices",
