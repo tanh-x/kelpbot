@@ -2,6 +2,11 @@ package utils
 
 import bot.command.BotCommand
 import bot.command.CommandCategory
+import dev.kord.common.annotation.KordExperimental
+import dev.kord.common.annotation.KordUnsafe
+import dev.kord.common.entity.Snowflake
+import dev.kord.core.Kord
+import dev.kord.core.behavior.channel.MessageChannelBehavior
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
@@ -37,6 +42,9 @@ fun Message.getCommand(checkInvocable: Boolean = false): BotCommand? {
             return@firstOrNull invocation in cmd.invocations && (!checkInvocable || cmd.isInvocable(this))
         }
 }
+
+@OptIn(KordUnsafe::class, KordExperimental::class)
+fun Kord.getChannel(id: ULong): MessageChannelBehavior = unsafe.messageChannel(Snowflake(id))
 
 fun getArgs(s: String): Array<String> = s
     .split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*\$)".toRegex())
