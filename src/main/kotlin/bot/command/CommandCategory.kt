@@ -60,10 +60,9 @@ enum class CommandCategory(
             invocations = arrayOf("kys"),
             descriptor = "immediately throws an error, crashing the bot",
             execute = { msg: Message, _: Array<String> ->
-                msg.respond("skull")
-                throw UnknownError("Brutally murdered by kebebrer.")
+                msg.respond(":skull:")
+                throw UnknownError("Brutally murdered by kebbebr")
             }
-
         )),
         categoryDescriptor = "Debug commands",
         isInvocableByMessage = { msg: Message -> msg.author?.id?.value in BotConstants.BOT_ADMINS_LIST }

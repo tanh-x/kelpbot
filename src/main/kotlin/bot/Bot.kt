@@ -42,31 +42,31 @@ object Bot {
     suspend fun main(): Unit {
         val kord = Kord(File("./token.txt").readLines().first())
 
-        try {
-            kord.on<MessageCreateEvent> {
+        kord.on<MessageCreateEvent> {
+            try {
                 if (message.author == null || message.author!!.isBot ||
                     !message.content.startsWith(BotConstants.COMMAND_PREFIX) ||
                     message.content.length > BotConstants.MESSAGE_LENGTH_LIMIT
                 ) return@on
                 message.executeCommand()
+            } catch (err: Throwable) {
+                println("[!!] Error occurred during runtime at ${Instant.ofEpochMilli(getTimeMillis())}")
+                @OptIn(KordUnsafe::class, KordExperimental::class)
+                handleRuntimeThrowable(
+                    err = err,
+                    reportingChannel = kord.unsafe.messageChannel(Snowflake(BotConstants.ERROR_REPORTING_CHANNEL))
+                )
             }
-        } catch (err: Throwable) {
-            println("[!!] Error occurred during runtime at ${Instant.ofEpochMilli(getTimeMillis())}")
-            @OptIn(KordUnsafe::class, KordExperimental::class)
-            handleRuntimeThrowable(
-                err = err,
-                reportingChannel = kord.unsafe.messageChannel(Snowflake(BotConstants.ERROR_REPORTING_CHANNEL))
-            )
         }
 
-        try {
-            kord.login {
+        kord.login {
+            try {
                 @OptIn(PrivilegedIntent::class)
                 this.intents += Intent.MessageContent
+            } catch (err: Throwable) {
+                println("[!!] Error occurred during login")
+                handleLoginThrowable(err)
             }
-        } catch (err: Throwable) {
-            println("[!!] Error occurred during login")
-            handleLoginThrowable(err)
         }
     }
 
@@ -83,27 +83,17 @@ object Bot {
         reportingChannel: MessageChannelBehavior? = null
     ): Unit {
         var errorMsg: String =
-            "Encountered exception \"${err::class.qualifiedName}\"" +
+            "Encountered error \"${err::class.qualifiedName}\"" +
             "at ${Instant.ofEpochMilli(getTimeMillis())}.\n" +
             "caused by: `${err.message}`\n" +
             "stack trace (truncated to 6 calls): \n```" + err.stackTrace.run {
-                return@run this
-                    .slice(0..(min(6, this.size)))
-                    .joinToString("\n")
-            } + "```\n"
+                return@run this.slice(0..(min(6, this.size))).joinToString("\n")
+            } + "```"
 
-        when (err) {
-            is IllegalStateException -> {
-                errorMsg += "bot has illegal state, exiting to avoid unpredictable behavior"
-            }
-
-            is Exception -> {
-                errorMsg += "no matching catch block declared, will terminate bot process"
-            }
-
-            else -> {
-                errorMsg += "encountered unrecoverable error, exiting"
-            }
+        errorMsg += when (err) {
+            is IllegalStateException -> "bot has illegal state, exiting to avoid unpredictable behavior"
+            is Exception -> "no matching catch block declared, will terminate bot process"
+            else -> "unrecoverable error, exiting"
         }
 
         reportingChannel?.createMessage(errorMsg)
