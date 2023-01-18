@@ -20,6 +20,12 @@ data class MonopolyBoard(
         idx.takeIf { tile is RailroadTile }
     }.toTypedArray()
 
+    val jailIdx: Int = tileset.mapIndexedNotNull { idx: Int, tile: AbstractTile ->
+        idx.takeIf { tile is JailTile }
+    }.apply {
+        if (size != 1) throw IllegalStateException("Found $size jail tiles in tileset ($this)")
+    }.first()
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

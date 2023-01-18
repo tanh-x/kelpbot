@@ -1,6 +1,7 @@
 package game
 
 import dev.kord.core.entity.Member
+import utils.getUID
 
 abstract class AbstractPlayer(
     val member: Member,
@@ -11,6 +12,6 @@ abstract class AbstractPlayer(
     val name: String
         get() = member.displayName
 
-    val id: ULong
-        get() = member.id.value
+    val uid: ULong
+        get() = member.getUID()
 }

@@ -10,6 +10,7 @@ import dev.kord.core.behavior.channel.MessageChannelBehavior
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
+import dev.kord.core.entity.User
 import dev.kord.rest.builder.message.create.UserMessageCreateBuilder
 
 suspend fun Message.respond(s: String): Unit {
@@ -23,6 +24,8 @@ suspend fun Message.respond(builder: UserMessageCreateBuilder.() -> Unit): Unit 
 suspend fun Message.reply(s: String): Unit {
     this.reply { this.content = s }
 }
+
+fun User.getUID(): ULong = this.id.value
 
 fun Message.canInvokeCommand(cat: CommandCategory): Boolean = cat.isInvocableByMessage(this)
 

@@ -1,6 +1,7 @@
 package game.monopoly_game
 
 import dev.kord.core.entity.Member
+import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.MessageChannel
 import game.AbstractGame
 import game.game_interfaces.DiceGame
@@ -32,12 +33,14 @@ class MonopolyGame(
         .mapValues { pair: Map.Entry<Int, MonopolyPlayer> ->
             pair.value.member
         }.toMutableMap()
+    private var rollsLeft: Int = params.maxDoubleRolls
 
     override val turnPlayer: MonopolyPlayer
         get() = playerList[ply]
             ?: throw IllegalStateException("Current ply (#$ply) doesn't correspond to any player")
 
     override fun incrementPly(): Unit = runBlocking {
+        // Validation checks
         val failedChecks: Set<ValidationChecks> = MonopolyGameStateValidator.validateGame(
             game = this@MonopolyGame, onlyReturnFails = true
         ).keys
@@ -50,9 +53,13 @@ class MonopolyGame(
             )
         }
 
+        // Sets things up for the next ply
+        if (turnPlayer.position != board.jailIdx) turnPlayer.jailTurns = -1
         super.incrementPly()
         diceRoll.clear()
+        rollsLeft = params.maxDoubleRolls
 
+        // Skip bankrupt players
         if (turnPlayer.isBankrupt) incrementPly()
     }
 
@@ -76,10 +83,8 @@ class MonopolyGame(
                 launch { sendMessage(notifyNegBalance(turnPlayer)) }
                 return@runBlocking false
             }
-
             // Else, the player has nothing left, and must is forced to declare bankruptcy
             declareBankruptcy(turnPlayer)
-
             return@runBlocking true
         }
 
@@ -95,12 +100,54 @@ class MonopolyGame(
         bankruptPlayer.isBankrupt = true
     }
 
-    fun roll(): ArrayList<Int> = super.roll(params.numberOfDice, params.numberOfFaces)
+    fun roll(): ArrayList<Int> {
+        if ((diceRoll.isNotEmpty() && !wasDoubleRoll())) return diceRoll
+        super.roll(params.numberOfDice, params.numberOfFaces)
+
+        if (turnPlayer.jailTurns > 0) {
+            if (turnPlayer.position != board.jailIdx) return diceRoll
+            if (wasDoubleRoll()) {  // Get out of jail by double roll
+                turnPlayer.moveBy(diceSum)
+            }
+            return diceRoll
+        }
+
+        rollsLeft -= 1
+        if (rollsLeft == 0 && wasDoubleRoll()) sendToJail(turnPlayer)
+
+        turnPlayer.moveBy(diceSum)
+        return diceRoll
+    }
+
+    /**
+     * @param newPosition Tile index to move the player to, can be over the size of the board,
+     * in which case the game will reward based on how many times the player would've stepped
+     * past the Go tile, if [collectGoReward] is true
+     * @param collectGoReward Whether to reward the player with the Go reward if applicable
+     */
+    private fun MonopolyPlayer.moveTo(newPosition: Int, collectGoReward: Boolean = false): Unit {
+        if (collectGoReward) this.addMoney(newPosition / board.size)
+        this.position = newPosition % board.size
+        board.tileset[newPosition].onPlayerStep(this, this@MonopolyGame)
+    }
+
+    private fun MonopolyPlayer.moveBy(steps: Int): Unit {
+        this.moveTo(this.position + steps, true)
+    }
+
+    private fun sendToJail(player: MonopolyPlayer): Unit {
+        player.moveTo(board.jailIdx)
+        player.jailTurns = params.jailDiceRolls
+    }
 
     /**
      * Returns the tile that this player is currently standing on
      */
     fun MonopolyPlayer.getTile(): AbstractTile = board.tileset[this.position]
+
+    override fun User.fetchPlayer(): MonopolyPlayer? {
+        return playerList.values.firstOrNull { player: MonopolyPlayer -> this.id.value == player.uid }
+    }
 
     companion object {
         fun notifyNegBalance(player: MonopolyPlayer): String =

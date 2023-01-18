@@ -2,6 +2,7 @@ package game
 
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Member
+import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.MessageChannel
 import dev.kord.rest.builder.message.create.UserMessageCreateBuilder
 import io.ktor.util.date.*
@@ -66,6 +67,8 @@ abstract class AbstractGame(
     open fun getFormattedPlayerList(): String {
         return userList.joinToString(", ") { p: Member -> p.displayName }
     }
+
+    abstract fun User.fetchPlayer(): AbstractPlayer?
 
     /**
      * More succinct method call to send a message to the channel that the game is hosted on

@@ -1,12 +1,16 @@
 package bot.command
 
 import dev.kord.core.entity.Message
+import game.AbstractGame
+import game.AbstractPlayer
 import game.GameManager
 import game.GameManager.fetchGameInChannel
 import game.game_interfaces.DiceGame
 import game.game_interfaces.TurnBasedGame
+import game.monopoly_game.MonopolyGame
 import utils.BotConstants
 import utils.formatDiceRoll
+import utils.getUID
 import utils.respond
 import utils.reply
 
@@ -97,7 +101,7 @@ enum class CommandCategory(
             invocations = arrayOf("start"),
             descriptor = "Starts the game in this channel.",
             execute = { msg: Message, _: Array<String> ->
-
+                msg.fetchGameInChannel()?.startGame()
             }
         )),
         categoryDescriptor = "General game commands",
@@ -120,8 +124,7 @@ enum class CommandCategory(
                 G.incrementPly()
             },
             isInvocable = { msg: Message ->
-                val G: TurnBasedGame = msg.fetchGameInChannel() as TurnBasedGame
-                G.turnMember.id.value == msg.author?.id?.value
+                (msg.fetchGameInChannel() as TurnBasedGame).isCurrentTurn(msg.author)
             }
         ),
         BotCommand(
@@ -134,11 +137,6 @@ enum class CommandCategory(
         )),
         categoryDescriptor = "Commands for turn-based games",
         isInvocableByMessage = { msg: Message ->
-            /*
-            * Allows us to not carry out null checks within the commands' execute functions
-            * regarding whether a game exists within the channel that the command was invoked in,
-            * since the execute block never gets called if we are already guarded by this check.
-            * */
             msg.fetchGameInChannel() is TurnBasedGame
         }
     ),
@@ -154,12 +152,25 @@ enum class CommandCategory(
         )),
         categoryDescriptor = "Commands for games with dices",
         isInvocableByMessage = { msg: Message ->
-            /*
-            * Allows us to not carry out null checks within the commands' execute functions
-            * regarding whether a game exists within the channel that the command was invoked in,
-            * since the execute block never gets called if we are already guarded by this check.
-            * */
-            msg.fetchGameInChannel() is DiceGame
+            val G: AbstractGame? = msg.fetchGameInChannel()
+            G is DiceGame && (G !is TurnBasedGame || !G.isCurrentTurn(msg.author))
+        }
+    ),
+
+    MONOPOLY_GAME(commands = arrayOf(
+        BotCommand(
+            invocations = arrayOf("buy", "purchase"),
+            descriptor = "Purchase the square that the player is currently standing on",
+            execute = { msg: Message, _: Array<String> ->
+                val G: MonopolyGame = msg.fetchGameInChannel() as MonopolyGame
+            },
+            isInvocable = { msg: Message ->
+                (msg.fetchGameInChannel() as TurnBasedGame).isCurrentTurn(msg.author)
+            }
+        )),
+        categoryDescriptor = "Commands for Monopoly game",
+        isInvocableByMessage = { msg: Message ->
+            msg.fetchGameInChannel() is MonopolyGame
         }
     ),
 
@@ -167,56 +178,7 @@ enum class CommandCategory(
         BotCommand(
             invocations = arrayOf("do"),
             descriptor = "",
-            execute = { msg: Message, vargs: Array<String> ->
-
-            }
+            execute = { _, _ -> }
         )
     ));
 }
-
-
-//
-//object CommandList {l1
-//    @JvmStatic
-//    val DUMMY_COMMANDS: Array<BotCommand> = arrayOf(
-//        BotCommand(invocation = arrayOf("help", "h", "?"), "") { msg: Message, _: Array<String> ->
-//            msg.respond("no help")
-//        },
-//        BotCommand(
-//            invocation = arrayOf("goongus", "glungus", "grungus", "grunglus"),
-//            ""
-//        ) { msg: Message, _: Array<String> ->
-//            msg.respond("goongus")
-//        },
-//        BotCommand(invocation = arrayOf("nothing"))
-//    )
-//
-//    @JvmStatic
-//    val GLOBAL_GAME_COMMANDS: Array<BotCommand> = arrayOf(
-//        BotCommand(invocation = arrayOf("create", "new", "+"), "") { msg: Message, vargs: Array<String> ->
-//
-//        }
-//    )
-//
-//    @JvmStatic
-//    val ABSTRACT_GAME_COMMANDS: Array<BotCommand> = arrayOf(
-//        BotCommand(invocation = arrayOf("start"), "Starts the game in this channel.")
-//    )
-//
-//    @JvmStatic
-//    val TURN_BASED_GAME_COMMANDS: Array<BotCommand> = arrayOf(
-//        BotCommand(
-//            invocation = arrayOf("end", "et"),
-//            "Ends the current player's turn, increments ply by 1"
-//        ) { msg: Message, _: Array<String> ->
-//
-//        }
-//    )
-//
-//    @JvmStatic
-//    val TEST_GAME_COMMANDS: Array<BotCommand> = arrayOf(
-//        BotCommand(invocation = arrayOf(), "") { msg: Message, vargs: Array<String> ->
-//
-//        }
-//    )
-//}

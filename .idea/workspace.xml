@@ -4,22 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="fix">
+    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="oh god">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/JailTile.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/AbstractGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/AbstractGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/AbstractPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/AbstractPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/game_interfaces/DiceGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/game_interfaces/DiceGame.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/game_interfaces/TurnBasedGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/game_interfaces/TurnBasedGame.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGameStateValidator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGameStateValidator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/Purchasable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/Purchasable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/RailroadTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/RailroadTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/StandardTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/StandardTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/UtilityTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/UtilityTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/test_game/TestGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/BotConstants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/BotConstants.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/MonopolyBoard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/MonopolyBoard.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/BotHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/BotHelpers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/MathHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/MathHelpers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/MonopolyHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/MonopolyHelpers.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673973901540</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="oh god">
+      <created>1673992029593</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1673992029593</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -308,7 +311,8 @@
     <MESSAGE value="more monopoly functionality" />
     <MESSAGE value="game state validation checks" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="oh god" />
+    <option name="LAST_COMMIT_MESSAGE" value="oh god" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

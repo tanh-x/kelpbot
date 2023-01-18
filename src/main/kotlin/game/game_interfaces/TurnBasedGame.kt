@@ -1,7 +1,9 @@
 package game.game_interfaces
 
 import dev.kord.core.entity.Member
+import dev.kord.core.entity.User
 import game.AbstractPlayer
+import utils.getUID
 import java.lang.IllegalArgumentException
 
 interface TurnBasedGame {
@@ -29,9 +31,10 @@ interface TurnBasedGame {
         pair.value == this.member
     }?.key ?: throw IllegalArgumentException("Player is not part of this game")
 
-    fun Member.isCurrentTurn(): Boolean = memberTurns[ply] == this
+    fun isCurrentTurn(user: User?): Boolean = user != null && user.getUID() == turnMember.getUID()
+    fun isCurrentTurn(player: AbstractPlayer): Boolean = turnMember == player.member
 
-    fun AbstractPlayer.isCurrentTurn(): Boolean = memberTurns[ply] == this.member
+
 
     fun incrementTurn(): Unit {
         turn += 1

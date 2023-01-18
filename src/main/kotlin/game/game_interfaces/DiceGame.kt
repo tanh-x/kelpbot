@@ -12,4 +12,6 @@ interface DiceGame {
         repeat(numDice) { diceRoll.add(Random.nextInt(numFace) + 1) }
         return diceRoll
     }
+
+    fun wasDoubleRoll(): Boolean = diceRoll.toSet().size == 1
 }
