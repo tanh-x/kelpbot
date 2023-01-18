@@ -10,9 +10,9 @@ import java.lang.IllegalArgumentException
 class MonopolyPlayer(
     member: Member,
     isHost: Boolean = false,
-    val gameplayParams: MonopolyGameplayParams
+    private val gameParams: MonopolyGameplayParams
 ) : AbstractPlayer(member, isHost) {
-    var money: Int = MonopolyConstants.STARTING_BALANCE
+    var money: Int = gameParams.startingBalance
         private set
     var position: Int = 0
     val owns: MutableMap<Int, Purchasable> = mutableMapOf()
@@ -27,5 +27,6 @@ class MonopolyPlayer(
 
     fun addMoney(n: Int): Unit {
         if (n < 0) throw IllegalArgumentException("Tried to give $name a negative amount of money: $n")
+        money += n
     }
 }

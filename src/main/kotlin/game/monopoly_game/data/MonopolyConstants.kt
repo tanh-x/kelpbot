@@ -20,7 +20,9 @@ object MonopolyConstants {
     @JvmStatic
     val STD_RAILROAD_POSITIONS: Array<Int> = arrayOf(15, 25, 35)
 
-    @JvmStatic
-    val STD_BOARD_SIZE: Int = 40
+    const val STD_BOARD_SIZE: Int = 40
 
+    const val STD_BOARD_CSV_PATH: String = "src/main/kotlin/game/monopoly_game/data/board-standard.csv"
+    const val MAX_BOARD_CSV_FILE_SIZE: Int = 16 * 1024
+    const val MAX_TILES: Int = 200
 }

@@ -8,9 +8,12 @@ import game.game_interfaces.DiceGame
 import game.game_interfaces.TurnBasedGame
 import game.monopoly_game.board.AbstractTile
 import game.monopoly_game.board.MonopolyBoard
+import game.monopoly_game.data.MonopolyConstants
 import game.monopoly_game.data.MonopolyGameplayParams
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import utils.BotConstants
+import utils.BotConstants.COIN
 import utils.formatDiceRoll
 import utils.instantiateStandardBoard
 
@@ -53,6 +56,8 @@ class MonopolyGame(
             )
         }
 
+        if (!canEndTurn()) return@runBlocking
+
         // Sets things up for the next ply
         if (turnPlayer.position != board.jailIdx) turnPlayer.jailTurns = -1
         super.incrementPly()
@@ -65,10 +70,22 @@ class MonopolyGame(
 
     override val diceRoll: ArrayList<Int> = arrayListOf()
 
+    override fun addMember(
+        member: Member,
+        allowMultiControl: Boolean,
+        isHost: Boolean
+    ): Boolean {
+        if (!super.addMember(member, allowMultiControl, isHost)) return false
+
+        playerList[playerList.size] = MonopolyPlayer(member, isHost, params)
+        memberTurns[memberTurns.size] = member
+        return true
+    }
+
     /**
      * @return Whether the turn can end (i.e. all issues resolved)
      */
-    fun canEndTurn(): Boolean = runBlocking {
+    private fun canEndTurn(): Boolean = runBlocking {
         if (diceRoll.isEmpty()) {
             launch { sendMessage("Roll dice before ending turn") }
             return@runBlocking false
@@ -100,8 +117,10 @@ class MonopolyGame(
         bankruptPlayer.isBankrupt = true
     }
 
-    fun roll(): ArrayList<Int> {
-        if ((diceRoll.isNotEmpty() && !wasDoubleRoll())) return diceRoll
+    override fun roll(numDice: Int, numFace: Int): ArrayList<Int> {
+        if ((diceRoll.isNotEmpty() && !wasDoubleRoll())) {
+            return diceRoll
+        }
         super.roll(params.numberOfDice, params.numberOfFaces)
 
         if (turnPlayer.jailTurns > 0) {
@@ -126,16 +145,18 @@ class MonopolyGame(
      * @param collectGoReward Whether to reward the player with the Go reward if applicable
      */
     private fun MonopolyPlayer.moveTo(newPosition: Int, collectGoReward: Boolean = false): Unit {
-        if (collectGoReward) this.addMoney(newPosition / board.size)
+        if (collectGoReward && newPosition >= board.size) {
+            this.addMoney(newPosition / board.size * params.passGoReward)
+        }
         this.position = newPosition % board.size
-        board.tileset[newPosition].onPlayerStep(this, this@MonopolyGame)
+        board.tileset[this.position].onPlayerStep(this, this@MonopolyGame)
     }
 
     private fun MonopolyPlayer.moveBy(steps: Int): Unit {
         this.moveTo(this.position + steps, true)
     }
 
-    private fun sendToJail(player: MonopolyPlayer): Unit {
+    fun sendToJail(player: MonopolyPlayer): Unit {
         player.moveTo(board.jailIdx)
         player.jailTurns = params.jailDiceRolls
     }
@@ -144,6 +165,14 @@ class MonopolyGame(
      * Returns the tile that this player is currently standing on
      */
     fun MonopolyPlayer.getTile(): AbstractTile = board.tileset[this.position]
+
+    override fun getDetailedGameString(): String {
+        return "Turn: $turn + $ply ply \n" +
+        playerList.map { e: Map.Entry<Int, MonopolyPlayer> ->
+            val p: MonopolyPlayer = e.value
+            "#${e.key}: ${p.name} (${p.money} $COIN + ${p.owns.size} tiles) @ ${board.tileset[p.position].name}"
+        }.joinToString("\n")
+    }
 
     override fun User.fetchPlayer(): MonopolyPlayer? {
         return playerList.values.firstOrNull { player: MonopolyPlayer -> this.id.value == player.uid }

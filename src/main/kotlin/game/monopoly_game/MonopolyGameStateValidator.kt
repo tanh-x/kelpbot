@@ -35,6 +35,8 @@ enum class ValidationChecks(
         }
     )
 
+    // TODO: AbstractTile.position matches their index in MonopolyBoard.tileset
+
     // TODO: Negative money check
 
     // TODO: jailTurns is in -1 and params.jailDiceRolls check

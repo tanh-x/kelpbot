@@ -21,7 +21,7 @@ object GameManager {
      * @return True if the [channelId] key is not already associated with a game, false if there is
      * already a game in this channel
      */
-    fun createNewGame(channelId: ULong, game: AbstractGame): Boolean {
+    fun addNewGame(channelId: ULong, game: AbstractGame): Boolean {
         gamesList.putIfAbsent(channelId, game).also { return it == null }
     }
 }

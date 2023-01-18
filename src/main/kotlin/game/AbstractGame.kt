@@ -14,9 +14,11 @@ abstract class AbstractGame(
      * Stores the list of players participating in the game. Uses a [MutableSet] of [Member]s
      * as we want to access server-specific information.
      */
-    private var userList: MutableSet<Member>,
+    userList: MutableSet<Member>,
     hostChannel: MessageChannel,
 ) {
+    var userList: MutableSet<Member> = userList
+        private set
 
     /**
      * Whether the game is still in progress
@@ -49,13 +51,17 @@ abstract class AbstractGame(
     /**
      * Attempts to add the specified user to the game
      */
-    open fun addPlayer(member: Member): Boolean = runBlocking {
+    open fun addMember(
+        member: Member,
+        allowMultiControl: Boolean = false,
+        isHost: Boolean = false
+    ): Boolean = runBlocking {
         if (!isJoinable) {
             launch { sendMessage("This game is no longer open to new players") }
             return@runBlocking false
         }
 
-        if (!userList.add(member)) {
+        if (!userList.add(member) && !allowMultiControl) {
             launch { sendMessage("${member.displayName} is already in this game") }
             return@runBlocking false
         }
@@ -68,6 +74,8 @@ abstract class AbstractGame(
         return userList.joinToString(", ") { p: Member -> p.displayName }
     }
 
+    open fun getDetailedGameString(): String = ""
+
     abstract fun User.fetchPlayer(): AbstractPlayer?
 
     /**
@@ -79,5 +87,12 @@ abstract class AbstractGame(
 
     protected suspend fun sendMessage(builder: UserMessageCreateBuilder.() -> Unit): Unit {
         channel.createMessage(builder)
+    }
+
+    override fun toString(): String {
+        return "${this::class.simpleName} " +
+        "created ${(getTimeMillis() - createdOnMilis) / 60_000} minutes ago " +
+        "with ${userList.size} player(s): " +
+        getFormattedPlayerList()
     }
 }

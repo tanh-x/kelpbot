@@ -1,6 +1,7 @@
 package game.test_game
 
 import dev.kord.core.entity.Member
+import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.MessageChannel
 import game.AbstractGame
 import game.AbstractPlayer
@@ -31,4 +32,6 @@ class TestGame(
     override fun startGame(): Unit = runBlocking {
         launch { sendMessage("Starting the test game") }
     }
+
+    override fun User.fetchPlayer(): AbstractPlayer = turnPlayer
 }

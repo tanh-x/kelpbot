@@ -51,7 +51,9 @@ fun Kord.getChannel(id: ULong): MessageChannelBehavior = unsafe.messageChannel(S
 
 fun getArgs(s: String): Array<String> = s
     .split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*\$)".toRegex())
-    .filter { x -> x.isNotBlank() }
+    .mapNotNull { s: String ->
+        (s.trim('"')).takeIf { s.isNotBlank() }
+    }
     .toTypedArray()
 
 fun formatDiceRoll(roll: ArrayList<Int>, showSum: Boolean = true): String =

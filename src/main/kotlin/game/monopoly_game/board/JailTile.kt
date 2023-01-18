@@ -4,8 +4,8 @@ import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer
 
 class JailTile(
-    position: Int,
+    id: Int,
     name: String,
-) : AbstractTile(position, name) {
+) : AbstractTile(id, name) {
     override fun onPlayerStep(player: MonopolyPlayer, gameState: MonopolyGame): Unit {}
 }

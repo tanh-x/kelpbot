@@ -1,5 +1,7 @@
 package game.monopoly_game.board
 
+import game.monopoly_game.data.TileColor
+
 /**
  * Data class representing a Monopoly board, holds the list of [AbstractTile]s as
  * they update throughout the game, as well as several methods aiding the functionality
@@ -9,6 +11,7 @@ package game.monopoly_game.board
  */
 data class MonopolyBoard(
     val tileset: Array<AbstractTile>,
+    val colorSets: Map<TileColor, Array<Int>>
 ) {
     val size: Int = tileset.size
 

@@ -2,12 +2,12 @@ package game.monopoly_game.board
 
 import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer
-import game.monopoly_game.data.TileColors
+import game.monopoly_game.data.TileColor
 
 class StandardTile(
     id: Int,
     name: String,
-    val color: TileColors,
+    val color: TileColor,
     override val price: Int,
     override val payout: Array<Int>
 ) : AbstractTile(id, name), Purchasable {

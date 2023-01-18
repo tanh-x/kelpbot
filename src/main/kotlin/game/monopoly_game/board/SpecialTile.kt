@@ -4,9 +4,9 @@ import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer
 
 class SpecialTile(
-    position: Int,
+id: Int,
     name: String,
     private inline val effect: (MonopolyPlayer, MonopolyGame) -> Unit
-) : AbstractTile(position, name) {
+) : AbstractTile(id, name) {
     override fun onPlayerStep(player: MonopolyPlayer, gameState: MonopolyGame): Unit = effect(player, gameState)
 }
