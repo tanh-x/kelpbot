@@ -8,6 +8,7 @@ import game.GameManager.fetchGameInChannel
 import game.game_interfaces.DiceGame
 import game.game_interfaces.TurnBasedGame
 import game.monopoly_game.MonopolyGame
+import game.monopoly_game.MonopolyPlayer
 import utils.BotConstants
 import utils.formatDiceRoll
 import utils.reply
@@ -230,6 +231,17 @@ enum class CommandCategory(
             isInvocable = { msg: Message ->
                 (msg.fetchGameInChannel() as TurnBasedGame).isCurrentTurn(msg.author)
             }
+        ),
+        BotCommand(
+            invocations = arrayOf("bankrupt", "%#"),
+            descriptor = "Declare bankruptcy",
+            execute = { msg: Message, _: Array<String> ->
+                val G: MonopolyGame = msg.fetchGameInChannel() as MonopolyGame
+                G.fetchPlayer(msg.author!!)?.let { p: MonopolyPlayer -> G.declareBankruptcy(p)}
+            },
+            isInvocable = { msg: Message ->
+                (msg.fetchGameInChannel() as TurnBasedGame).isCurrentTurn(msg.author)
+            }
         )),
         categoryDescriptor = "Commands for Monopoly game",
         isInvocableByMessage = { msg: Message ->
@@ -240,9 +252,9 @@ enum class CommandCategory(
 
     TEST_GAME(commands = arrayOf(
         BotCommand(
-            invocations = arrayOf("do"),
+            invocations = arrayOf("do", "&"),
             descriptor = "",
-            execute = { _, _ -> }
+            execute = { _, _ -> null!! }
         )
     ));
 }

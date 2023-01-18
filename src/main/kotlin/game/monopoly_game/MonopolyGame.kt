@@ -109,6 +109,8 @@ class MonopolyGame(
     }
 
     fun declareBankruptcy(bankruptPlayer: MonopolyPlayer): Unit {
+        if (playerList.size == 1) return  // TODO: Win condition
+
         val embezzledFunds: Int = bankruptPlayer.money / (playerList.size - numBankrupt)
         playerList.forEach { playerEntry: Map.Entry<Int, MonopolyPlayer> ->
             if (!playerEntry.value.isBankrupt) playerEntry.value.addMoney(embezzledFunds)
@@ -174,8 +176,8 @@ class MonopolyGame(
         }.joinToString("\n")
     }
 
-    override fun User.fetchPlayer(): MonopolyPlayer? {
-        return playerList.values.firstOrNull { player: MonopolyPlayer -> this.id.value == player.uid }
+    fun fetchPlayer(user: User): MonopolyPlayer? {
+        return playerList.values.firstOrNull { player: MonopolyPlayer -> user.id.value == player.uid }
     }
 
     companion object {

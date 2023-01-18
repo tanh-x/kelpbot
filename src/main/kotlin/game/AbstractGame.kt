@@ -76,8 +76,6 @@ abstract class AbstractGame(
 
     open fun getDetailedGameString(): String = ""
 
-    abstract fun User.fetchPlayer(): AbstractPlayer?
-
     /**
      * More succinct method call to send a message to the channel that the game is hosted on
      */

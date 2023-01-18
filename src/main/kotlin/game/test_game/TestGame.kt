@@ -32,6 +32,4 @@ class TestGame(
     override fun startGame(): Unit = runBlocking {
         launch { sendMessage("Starting the test game") }
     }
-
-    override fun User.fetchPlayer(): AbstractPlayer = turnPlayer
 }
