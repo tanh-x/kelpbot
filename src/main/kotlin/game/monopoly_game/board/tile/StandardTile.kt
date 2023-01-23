@@ -1,4 +1,4 @@
-package game.monopoly_game.board
+package game.monopoly_game.board.tile
 
 import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer
@@ -7,10 +7,11 @@ import game.monopoly_game.data.TileColor
 class StandardTile(
     id: Int,
     name: String,
+    shorthand: String,
     val color: TileColor,
     override val price: Int,
     override val payout: Array<Int>
-) : AbstractTile(id, name), Purchasable {
+) : AbstractTile(id, name, shorthand), Purchasable {
 
     override var owner: MonopolyPlayer? = null
     override val level: Int = 0

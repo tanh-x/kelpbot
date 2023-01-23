@@ -1,4 +1,4 @@
-package game.monopoly_game.board
+package game.monopoly_game.board.tile
 
 import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer

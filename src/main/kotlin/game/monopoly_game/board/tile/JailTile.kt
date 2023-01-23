@@ -1,4 +1,4 @@
-package game.monopoly_game.board
+package game.monopoly_game.board.tile
 
 import game.monopoly_game.MonopolyGame
 import game.monopoly_game.MonopolyPlayer
@@ -6,6 +6,7 @@ import game.monopoly_game.MonopolyPlayer
 class JailTile(
     id: Int,
     name: String,
-) : AbstractTile(id, name) {
+    shorthand: String,
+) : AbstractTile(id, name, shorthand) {
     override fun onPlayerStep(player: MonopolyPlayer, gameState: MonopolyGame): Unit {}
 }

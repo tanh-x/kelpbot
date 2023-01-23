@@ -1,6 +1,5 @@
 package bot.command
 
-import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
 import game.AbstractGame
 import game.GameManager
@@ -215,6 +214,7 @@ enum class CommandCategory(
             descriptor = "Purchase the square that the player is currently standing on",
             execute = { msg: Message, _: Array<String> ->
                 val G: MonopolyGame = msg.fetchGameInChannel() as MonopolyGame
+                G.handlePurchaseTile()
             },
             isInvocable = { msg: Message ->
                 (msg.fetchGameInChannel() as TurnBasedGame).isCurrentTurn(msg.author)

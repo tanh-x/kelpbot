@@ -1,7 +1,7 @@
 package game.monopoly_game
 
-import game.monopoly_game.board.AbstractTile
-import game.monopoly_game.board.Purchasable
+import game.monopoly_game.board.tile.AbstractTile
+import game.monopoly_game.board.tile.Purchasable
 
 object MonopolyGameStateValidator {
     fun validateGame(game: MonopolyGame, onlyReturnFails: Boolean = true): Map<ValidationChecks, Boolean> {

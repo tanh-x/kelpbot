@@ -2,8 +2,7 @@ package game.monopoly_game
 
 import dev.kord.core.entity.Member
 import game.AbstractPlayer
-import game.monopoly_game.board.Purchasable
-import game.monopoly_game.data.MonopolyConstants
+import game.monopoly_game.board.tile.Purchasable
 import game.monopoly_game.data.MonopolyGameplayParams
 import java.lang.IllegalArgumentException
 
