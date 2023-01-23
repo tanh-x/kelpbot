@@ -8,6 +8,7 @@ import game.game_interfaces.DiceGame
 import game.game_interfaces.TurnBasedGame
 import game.monopoly_game.board.AbstractTile
 import game.monopoly_game.board.MonopolyBoard
+import game.monopoly_game.board.Purchasable
 import game.monopoly_game.data.MonopolyConstants
 import game.monopoly_game.data.MonopolyGameplayParams
 import kotlinx.coroutines.launch
@@ -166,7 +167,27 @@ class MonopolyGame(
     /**
      * Returns the tile that this player is currently standing on
      */
-    fun MonopolyPlayer.getTile(): AbstractTile = board.tileset[this.position]
+    private fun MonopolyPlayer.getTile(): AbstractTile = board.tileset[this.position]
+
+    fun purchaseTile(player: MonopolyPlayer): Boolean = runBlocking {
+        val tile: AbstractTile = player.getTile()
+        if (tile !is Purchasable) {
+            sendMessage("This tile is not purchasable")
+            return@runBlocking false
+        }
+        if (player.position in player.owns) {
+            sendMessage("${player.name} already owns this tile")
+            return@runBlocking false
+        }
+        if (player.money < tile.price) {
+            sendMessage("Not enough money to buy this tile")
+            return@runBlocking false
+        }
+        // Else, the player can buy this tile
+        player.owns[player.position] = tile
+        player.deductMoney(tile.price)
+        return@runBlocking true
+    }
 
     override fun getDetailedGameString(): String {
         return "Turn: $turn + $ply ply \n" +
