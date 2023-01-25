@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="purchasing mechanism">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/BoardImporter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/TileEffects.kt" afterDir="false" />
+    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="more">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGameStateValidator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGameStateValidator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyPlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/AbstractTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/AbstractTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/JailTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/JailTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/MonopolyBoard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/MonopolyBoard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/Purchasable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/Purchasable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/RailroadTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/RailroadTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/SpecialTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/SpecialTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/StandardTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/StandardTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/UtilityTile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/board/tile/UtilityTile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/board-standard.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/board-standard.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/MonopolyHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/MonopolyHelpers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/TileEffects.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/TileEffects.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674443806573</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="more">
+      <created>1674447705137</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1674447705137</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -355,7 +347,8 @@
     <MESSAGE value="basic game functionality" />
     <MESSAGE value="dckvmfld" />
     <MESSAGE value="purchasing mechanism" />
-    <option name="LAST_COMMIT_MESSAGE" value="purchasing mechanism" />
+    <MESSAGE value="more" />
+    <option name="LAST_COMMIT_MESSAGE" value="more" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
