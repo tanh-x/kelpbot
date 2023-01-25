@@ -169,6 +169,10 @@ class MonopolyGame(
 
     fun handlePurchaseTile(): Boolean = runBlocking {
         val tile: AbstractTile = turnPlayer.getTile()
+        if (diceRoll.isEmpty()) {
+            sendMessage("Haven't rolled dice, can only buy after rolling")
+            return@runBlocking false
+        }
         if (tile !is Purchasable) {
             sendMessage("This tile is not purchasable")
             return@runBlocking false

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="more">
+    <list default="true" id="5a08d733-e120-4b4d-9567-76a81dcdd16e" name="Changes" comment="tax">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/TileEffects.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/data/TileEffects.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/bot/command/CommandCategory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/game/monopoly_game/MonopolyGame.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,7 +310,21 @@
       <option name="project" value="LOCAL" />
       <updated>1674447705137</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="tax">
+      <created>1674611902793</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1674611902793</updated>
+    </task>
+    <task id="LOCAL-00029" summary="tax">
+      <created>1674611907997</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1674611907997</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -348,7 +363,8 @@
     <MESSAGE value="dckvmfld" />
     <MESSAGE value="purchasing mechanism" />
     <MESSAGE value="more" />
-    <option name="LAST_COMMIT_MESSAGE" value="more" />
+    <MESSAGE value="tax" />
+    <option name="LAST_COMMIT_MESSAGE" value="tax" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

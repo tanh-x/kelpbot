@@ -1,6 +1,7 @@
 package bot.command
 
 import dev.kord.core.entity.Message
+import dev.kord.rest.builder.message.EmbedBuilder
 import game.AbstractGame
 import game.GameManager
 import game.GameManager.fetchGameInChannel
@@ -54,9 +55,18 @@ enum class CommandCategory(
     BOT_ADMIN_COMMANDS(commands = arrayOf(
         BotCommand(
             invocations = arrayOf("echo", "$"),
-            descriptor = "replies with the list of arguments (Array<String>) passed into the command",
+            descriptor = "replies with the list of arguments (`Array<String>`) passed into the command",
             execute = { msg: Message, args: Array<String> ->
                 msg.reply(args.contentToString())
+            }
+        ),
+        BotCommand(
+            invocations = arrayOf(":"),
+            descriptor = "Does something",
+            execute = { msg: Message, args: Array<String> ->
+                val embed: EmbedBuilder = EmbedBuilder()
+                embed.field("Field name", true) { "Funny" }
+                embed.toRequest()
             }
         ),
         BotCommand(
@@ -82,8 +92,13 @@ enum class CommandCategory(
             }
         ),
         BotCommand(
+            invocations = arrayOf("null", "~!!"),
+            descriptor = "Immediately throws a null pointer exception (`{ _, _ -> null!! }`)",
+            execute = { _, _ -> null!! }
+        ),
+        BotCommand(
             invocations = arrayOf("formatdiceroll"),
-            descriptor = "tests the helper method utils.formatDiceRoll ((Array<Int>, Boolean?) -> String)",
+            descriptor = "tests the helper method utils.formatDiceRoll (`(Array<Int>, Boolean?) -> String`)",
             execute = { msg: Message, args: Array<String> ->
                 msg.reply(formatDiceRoll(ArrayList(args.mapNotNull { arg: String -> arg.toIntOrNull() })))
             }
